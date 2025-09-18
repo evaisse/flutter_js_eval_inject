@@ -1,0 +1,14 @@
+{
+  "name": "flutter-js-eval-inject-example-tests",
+  "version": "1.0.0",
+  "description": "Playwright tests for Flutter JS Eval Inject example app",
+  "scripts": {
+    "test": "playwright test",
+    "test:headed": "playwright test --headed",
+    "test:debug": "playwright test --debug"
+  },
+  "devDependencies": {
+    "@playwright/test": "^1.40.0",
+    "http-server": "^14.1.1"
+  }
+}

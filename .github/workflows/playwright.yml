@@ -1,0 +1,68 @@
+name: Playwright E2E Tests
+
+on:
+  push:
+    branches: [ master, main, develop ]
+  pull_request:
+    branches: [ master, main, develop ]
+  workflow_dispatch:
+
+jobs:
+  playwright:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+      
+      - name: Setup Flutter
+        uses: subosito/flutter-action@v2
+        with:
+          flutter-version: '3.24.0'
+          channel: 'stable'
+      
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+      
+      - name: Install Flutter dependencies
+        working-directory: example
+        run: |
+          flutter pub get
+      
+      - name: Build Flutter web app
+        working-directory: example
+        run: flutter build web --release
+      
+      - name: Install Node dependencies
+        working-directory: example
+        run: |
+          npm install
+          npm install -D @playwright/test http-server
+      
+      - name: Install Playwright browsers
+        working-directory: example
+        run: npx playwright install --with-deps
+      
+      - name: Run Playwright tests
+        working-directory: example
+        run: npx playwright test tests/playwright-browser-test.spec.js
+      
+      - name: Upload test results
+        uses: actions/upload-artifact@v3
+        if: always()
+        with:
+          name: playwright-results
+          path: |
+            example/playwright-report/
+            example/test-results/
+          retention-days: 30
+      
+      - name: Upload test videos
+        uses: actions/upload-artifact@v3
+        if: failure()
+        with:
+          name: playwright-videos
+          path: example/test-results/*/video.webm
+          retention-days: 7
