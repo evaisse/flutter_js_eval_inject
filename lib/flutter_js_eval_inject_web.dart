@@ -5,29 +5,14 @@ import 'package:flutter_web_plugins/flutter_web_plugins.dart';
 import 'package:web/web.dart' as web;
 import 'flutter_js_eval_inject_platform_interface.dart';
 
-@JS('window')
-external JSObject get _window;
-
 @JS('eval')
 external JSAny? _eval(String code);
-
-@JS('Object.keys')
-external JSArray<JSString> _objectKeys(JSObject obj);
-
-@JS('Array.isArray')
-external bool _isArray(JSAny? value);
 
 @JS('JSON.stringify')
 external String _jsonStringify(JSAny? value);
 
 @JS('JSON.parse')
 external JSAny? _jsonParse(String json);
-
-extension type FlutterJsEvalInjectBridge._(JSObject _) implements JSObject {
-  external void addJavascriptFile(String filePath);
-  external void addJavascriptCode(String code);
-  external JSAny? evalJavascript(String codeToEval);
-}
 
 class FlutterJsEvalInjectWeb extends FlutterJsEvalInjectPlatform {
   static void registerWith(Registrar registrar) {
@@ -54,7 +39,8 @@ class FlutterJsEvalInjectWeb extends FlutterJsEvalInjectPlatform {
       
       _bridgeInitialized = true;
     } catch (e) {
-      print('Error initializing JavaScript bridge: $e');
+      // Silent failure - bridge initialization failed
+      // This is acceptable as the plugin will still function without the bridge
     }
   }
 

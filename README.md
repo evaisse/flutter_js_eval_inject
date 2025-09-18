@@ -16,6 +16,7 @@ A hassle-free Flutter plugin that allows you to inject and evaluate JavaScript c
 - 🎯 **Type Conversion**: Automatic conversion between JavaScript and Dart types
 - ⚡ **Async/Await Support**: Clean async API with Future support
 - 🛡️ **Error Handling**: Proper exception handling with meaningful error messages
+- 🌐 **WebAssembly Support**: Compatible with Flutter's WebAssembly compilation using `dart:js_interop`
 
 ## Getting Started
 
@@ -38,6 +39,16 @@ dependencies:
 | Desktop  | ❌     |
 
 This plugin is currently designed for Flutter Web applications only.
+
+### WebAssembly Support
+
+This plugin now fully supports Flutter's WebAssembly compilation! Build with:
+
+```bash
+flutter build web --wasm
+```
+
+The plugin uses `dart:js_interop` instead of the legacy `dart:js` and `dart:html` packages, making it compatible with WebAssembly while maintaining the same API.
 
 ## Usage
 
