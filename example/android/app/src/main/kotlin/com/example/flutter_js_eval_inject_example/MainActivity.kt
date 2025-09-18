@@ -1,4 +1,4 @@
-package com.example.flutter_js_eval_inject_example
+package com.evaisse.flutter_js_eval_inject_example
 
 import io.flutter.embedding.android.FlutterActivity
 
