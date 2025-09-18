@@ -1,5 +1,5 @@
 name: flutter_js_eval_inject_example
-description: "A new Flutter project."
+description: 'Demo for eval/inject app.'
 publish_to: 'none'
 version: 0.1.0
 
@@ -9,6 +9,8 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
+  flutter_js_eval_inject:
+    path: ../
 
 dev_dependencies:
   flutter_test:
