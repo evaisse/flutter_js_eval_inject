@@ -1,0 +1,86 @@
+name: Flutter Tests
+
+on:
+  push:
+    branches: [ master, main, develop ]
+  pull_request:
+    branches: [ master, main, develop ]
+  workflow_dispatch:
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+      
+      - name: Setup Flutter
+        uses: subosito/flutter-action@v2
+        with:
+          flutter-version: '3.24.0'
+          channel: 'stable'
+      
+      - name: Verify Flutter installation
+        run: flutter --version
+      
+      - name: Install package dependencies
+        run: flutter pub get
+      
+      - name: Run package tests
+        run: flutter test
+      
+      - name: Analyze package code
+        run: flutter analyze --no-fatal-infos
+      
+      - name: Check package formatting
+        run: dart format --set-exit-if-changed .
+      
+      - name: Install example app dependencies
+        working-directory: example
+        run: flutter pub get
+      
+      - name: Run example app tests
+        working-directory: example
+        run: flutter test
+        continue-on-error: true
+      
+      - name: Analyze example app code
+        working-directory: example
+        run: flutter analyze --no-fatal-infos
+      
+      - name: Build web example
+        working-directory: example
+        run: flutter build web --release
+      
+  test-multiple-platforms:
+    strategy:
+      matrix:
+        os: [ubuntu-latest, macos-latest, windows-latest]
+        flutter-version: ['3.22.0', '3.24.0']
+    
+    runs-on: ${{ matrix.os }}
+    
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+      
+      - name: Setup Flutter
+        uses: subosito/flutter-action@v2
+        with:
+          flutter-version: ${{ matrix.flutter-version }}
+          channel: 'stable'
+      
+      - name: Install dependencies
+        run: flutter pub get
+      
+      - name: Run tests
+        run: flutter test
+      
+      - name: Install example dependencies
+        working-directory: example
+        run: flutter pub get
+      
+      - name: Build web example
+        working-directory: example
+        run: flutter build web
