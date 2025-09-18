@@ -1,6 +1,6 @@
 name: flutter_js_eval_inject
 description: 'Simple plugin using JS interop to add a javascript code into your current web page.'
-version: 0.0.1
+version: 0.0.2
 homepage: https://github.com/evaisse/flutter_js_eval_inject
 
 environment:
