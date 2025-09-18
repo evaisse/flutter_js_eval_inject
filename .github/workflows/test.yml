@@ -74,7 +74,7 @@ jobs:
         run: npx playwright test tests/playwright-browser-test.spec.js
 
       - name: Upload Playwright report
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         if: always()
         with:
           name: playwright-report
