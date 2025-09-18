@@ -5,7 +5,7 @@ homepage: https://github.com/evaisse/flutter_js_eval_inject
 
 environment:
   sdk: ^3.9.0
-  flutter: '>=1.17.0'
+  flutter: '>=1.20.0'
 
 dependencies:
   flutter:
